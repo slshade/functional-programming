@@ -1,0 +1,39 @@
+let f x = ((x**2.)/4.+(x/2.)+1.)*System.Math.Exp(x/2.)
+let rec fix function_ x = function_ (fix function_) x
+let a = 0.1
+let b = 0.6
+let n = 10
+let eps = 0.0000001
+
+//naive variant
+let rec factorial n = 
+    match n with 
+    |0|1->1
+    |_->n*factorial(n-1)
+
+let naive =
+    fix(
+        fun f acc n x ->
+            let addition = (n**2 + 1.) *x**n/(factorial(n)!*2.**(n)
+            if abs(addition) >= eps then f (acc + addition) (n + 1.) x
+            else acc, int(n)
+    ) 0. 1.
+
+//efficient variant
+let efficient x =
+    fix(
+        fun f ac n x prev_c prev_ ->
+            let new_c= prev *(-1.)*(n)/2.
+            let k = new_c * x * prev_
+            if abs(addition) >= eps then function_ (ac + k) (n + 1.) x new_c f (x * prev_)
+            else ac, int(n)
+    ) x 1. x 1. x
+
+let main =
+   for k=0 to n do
+     let x = a+(float k)/(float k)*(b-a)
+     let naive_1, naive_2 = naive x
+     let effic_1, effic_2 = efficient x
+     printfn "%5.2f  %10.6f  %10.6f   %2d   %10.6f   %2d" x (f x) naive_1 naive_2 eff_1 eff_2
+
+main
